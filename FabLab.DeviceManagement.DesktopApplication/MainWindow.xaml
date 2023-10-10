@@ -1,0 +1,149 @@
+﻿<Window x:Class="FabLab.DeviceManagement.DesktopApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FabLab.DeviceManagement.DesktopApplication"
+        xmlns:prism="http://prismlibrary.com/"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:device="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Device" xmlns:borrowreturn="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.BorrowReturn" xmlns:lendreturn="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.LendReturn"
+        Background="{StaticResource ColorBackground}"
+        Title="FabLabDeviceManagement" Height="800" Width="1300">
+    
+    <materialDesign:Card>
+        <TabControl
+            TabStripPlacement="Left"
+            Style="{StaticResource TabControlLogoStyle}">
+
+            <TabItem  
+                Style="{StaticResource TabItemLogoStyle}"
+                Height="248" Width="248" 
+                Padding="0">
+                <TabItem.Header>
+                    <Image 
+                        Source="Resources/Images/logo.jpg" 
+                        Width="248" Height="248" />
+                </TabItem.Header>
+                <TextBlock Text="Content for Tab 1"/>
+            </TabItem>
+
+            <TabItem 
+                Style="{StaticResource TabItemStyle}" 
+                Height="50">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <materialDesign:PackIcon Kind="Devices" 
+                                                     Width="30" Height="30" 
+                                                     HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Center" 
+                                                     Margin="0,0,5,0"/>
+                        <HeaderedContentControl  Content="Quản lý thiết bị"
+                                                                 HorizontalAlignment="Center"
+                                                                 FontSize="20"
+                                                                 FontWeight="Bold" Margin="0,0,50,0" />
+                    </StackPanel>
+                </TabItem.Header>
+                <device:DeviceManagementView></device:DeviceManagementView>
+            </TabItem>
+
+            <TabItem 
+                Style="{StaticResource TabItemStyle}" 
+                Height="50">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <materialDesign:PackIcon Kind="WrenchCogOutline" 
+                                                     Width="30" Height="30" 
+                                                     HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Center" 
+                                                     Margin="0,0,6,0"/>
+                        <HeaderedContentControl  Content="Quản lý bảo trì"
+                                                                 HorizontalAlignment="Center"
+                                                                 FontSize="20"
+                                                                 FontWeight="Bold" Margin="0,0,58,0" />
+                    </StackPanel>
+                </TabItem.Header>
+                <TextBlock Text="Content for Tab 3"/>
+            </TabItem>
+            
+            <TabItem 
+                Style="{StaticResource TabItemStyle}" 
+                Height="50">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <materialDesign:PackIcon Kind="WrenchCogOutline" 
+                                                     Width="30" Height="30" 
+                                                     HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Center" 
+                                                     Margin="0,0,6,0"/>
+                        <HeaderedContentControl  Content="Đăng ký dự án mới"
+                                                                 HorizontalAlignment="Center"
+                                                                 FontSize="20"
+                                                                 FontWeight="Bold" Margin="0,0,20,0" />
+                    </StackPanel>
+                </TabItem.Header>
+                <lendreturn:CreateNewProject></lendreturn:CreateNewProject>
+            </TabItem>
+            
+            <TabItem
+                Style="{StaticResource TabItemStyle}" 
+                Height="50" PreviewMouseDown="TabItem_PreviewMouseDown">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <materialDesign:PackIcon Kind="Autorenew" 
+                                                     Width="30" Height="30" 
+                                                     HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Center" 
+                                                     Margin="0,0,6,0"/>
+                        <HeaderedContentControl  Content="Quản lý TB mượn/trả"
+                                                                 HorizontalAlignment="Center"
+                                                                 FontSize="20"
+                                                                 FontWeight="Bold" />
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+
+            <TabItem x:Name="Tag1"
+                Style="{StaticResource TabItemStyle}" 
+                Height="40"
+                Visibility="Collapsed" HorizontalAlignment="Right" Width="249.42">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                        <materialDesign:PackIcon Kind="ArrowExpandRight" 
+                                                     Width="20" Height="20" 
+                                                     HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Center" 
+                                                     Margin="0,0,6,0"/>
+                        <HeaderedContentControl  Content="Đăng kí mới"
+                                                 HorizontalAlignment="Center"
+                                                 FontSize="18"
+                                                 FontWeight="Medium" 
+                                                 Margin="0,0,74,0"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <borrowreturn:CreateNewRequestView></borrowreturn:CreateNewRequestView>
+            </TabItem>
+
+            <TabItem x:Name="Tag2"
+                Style="{StaticResource TabItemStyle}" 
+                Height="40"
+                Visibility="Collapsed" HorizontalAlignment="Right" Width="249.6">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <materialDesign:PackIcon Kind="ArrowExpandRight" 
+                                                     Width="20" Height="20" 
+                                                     HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Center" 
+                                                     Margin="0,0,6,0"/>
+                        <HeaderedContentControl  Content="Xem danh sách"
+                                                 HorizontalAlignment="Left"
+                                                 FontSize="18"
+                                                 FontWeight="Medium" 
+                                                 Margin="0,0,50,0"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <borrowreturn:DeviceCategoryView></borrowreturn:DeviceCategoryView>
+            </TabItem>
+        </TabControl>
+    </materialDesign:Card>
+</Window>

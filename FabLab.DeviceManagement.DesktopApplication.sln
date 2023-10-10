@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FabLab.DeviceManagement.DesktopApplication", "FabLab.DeviceManagement.DesktopApplication\FabLab.DeviceManagement.DesktopApplication.csproj", "{4E099C72-CBDF-4D65-81E4-5B47B1372234}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FabLab.DeviceManagement.DesktopApplication.Core", "FabLab.DeviceManagement.DesktopApplication.Core\FabLab.DeviceManagement.DesktopApplication.Core.csproj", "{68B32C50-8751-42A3-AFE0-90277EC188AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E099C72-CBDF-4D65-81E4-5B47B1372234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E099C72-CBDF-4D65-81E4-5B47B1372234}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E099C72-CBDF-4D65-81E4-5B47B1372234}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E099C72-CBDF-4D65-81E4-5B47B1372234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68B32C50-8751-42A3-AFE0-90277EC188AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B32C50-8751-42A3-AFE0-90277EC188AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B32C50-8751-42A3-AFE0-90277EC188AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B32C50-8751-42A3-AFE0-90277EC188AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45C92DF3-CA7F-4A92-8D31-91F73AE124AE}
+	EndGlobalSection
+EndGlobal

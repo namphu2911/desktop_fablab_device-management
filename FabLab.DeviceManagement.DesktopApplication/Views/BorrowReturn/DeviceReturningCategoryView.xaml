@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="FabLab.DeviceManagement.DesktopApplication.Views.LendReturn.DeviceReturningCategoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.LendReturn"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             xmlns:Components="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Resources.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="670" d:DesignWidth="1090"
+             Background="{StaticResource ColorBackground}"
+             Padding="0,10,0,10">
+    <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
+        <materialDesign:DialogHost.DialogContent>
+            <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
+        </materialDesign:DialogHost.DialogContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <TextBlock Grid.Row="0" Grid.Column="0" 
+                       Margin="20,10,10,10"
+                       Style="{StaticResource FieldLabel}" 
+                       Text="Danh sách thiết bị đã trả" FontWeight="Bold" FontSize="20"/>
+            </Grid>
+
+            <materialDesign:Card Grid.Row="1"
+                             Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="337*"/>
+                        <ColumnDefinition Width="204*"/>
+                        <ColumnDefinition Width="39*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.ColumnSpan="3" Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="106"/>
+                            <ColumnDefinition Width="41.32"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" 
+                               Margin="10,0,0,0" 
+                               Text="Mã thiết bị:"
+                               Style="{StaticResource FieldLabel}" Grid.ColumnSpan="2"/>
+                        <ComboBox Grid.Column="2"
+                              Margin="10"
+                              materialDesign:HintAssist.Hint="Mã thiết bị"
+                              Style="{StaticResource ComboBox}"
+                              ItemsSource="{Binding ItemIds, UpdateSourceTrigger=PropertyChanged}"
+                              Text="{Binding ItemIdFilter}">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+
+                        <Button Grid.Column="3"
+                            Margin="10,10,10,10"
+                            Style="{StaticResource ButtonPrimary}"
+                            materialDesign:ButtonAssist.CornerRadius="10"
+                            Content="Tìm Kiếm">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <prism:InvokeCommandAction Command="{Binding FilterItemsCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+
+                    <DataGrid Grid.Row="1"
+                              Margin="10,10,10,10"
+                              IsReadOnly="True"
+                              AutoGenerateColumns="False"
+                              ItemsSource="{Binding Items}"
+                              Background="{StaticResource ColorSurface}"
+                              VirtualizingPanel.ScrollUnit="Pixel" 
+                              Grid.ColumnSpan="3">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Người mượn" Width="auto" Binding="{Binding ItemClassId}"/>
+                            <DataGridTextColumn Header="Mã thiết bị" Width="*" Binding="{Binding ItemId}"/>
+                            <DataGridTextColumn Header="Tên thiết bị" Width="*" Binding="{Binding ItemName}"/>
+                            <DataGridTextColumn Header="Vị trí" Width="*" Binding="{Binding GoodsIssueLotId}"/>
+                            <DataGridTextColumn Header="Ngày mượn" Width="*" Binding="{Binding Unit}"/>
+                            <DataGridTextColumn Header="Lí do mượn" Width="*" Binding="{Binding Unit}"/>
+                            <DataGridTextColumn Header="Số lượng" Width="*" Binding="{Binding Quantity}"/>
+                            <DataGridTextColumn Header="Tình trạng" Width="*" Binding="{Binding Note}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+    </materialDesign:DialogHost>
+</UserControl>
