@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Equipments;
+using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Models.Equipments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +11,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Mapping
 {
     public class DtoToModelProfile : Profile
     {
+        public DtoToModelProfile()
+        {
+            CreateMap<EquipmentDto, Equipment>();
+        }
     }
 }

@@ -20,11 +20,12 @@ namespace FabLab.DeviceManagement.DesktopApplication
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(Object dataContext)
         {
             InitializeComponent();
+            DataContext = dataContext;
         }
-        
+
         private void TabItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (Tag1.Visibility == Visibility.Collapsed)

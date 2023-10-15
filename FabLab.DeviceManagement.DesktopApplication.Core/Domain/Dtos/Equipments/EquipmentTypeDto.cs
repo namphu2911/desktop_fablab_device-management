@@ -9,15 +9,15 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Equipments
 {
     public class EquipmentTypeDto
     {
-        public string Id { get; set; }
+        public string EquipmentTypeId { get; set; }
         public string Picture { get; set; }
-        public string Value { get; set; }
+        public string EquipmentTypeName { get; set; }
         public ECategory Category { get; set; }
-        public EquipmentTypeDto(string id, string picture, string value, ECategory category)
+        public EquipmentTypeDto(string equipmentTypeId, string picture, string equipmentTypeName, ECategory category)
         {
-            Id = id;
+            EquipmentTypeId = equipmentTypeId;
             Picture = picture;
-            Value = value;
+            EquipmentTypeName = equipmentTypeName;
             Category = category;
         }
     }

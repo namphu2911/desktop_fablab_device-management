@@ -8,11 +8,11 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Locations
 {
     public class LocationDto
     {
-        public string Id { get; set; }
+        public string LocationId { get; set; }
         public string Note { get; set; }
-        public LocationDto(string id, string note)
+        public LocationDto(string locationId, string note)
         {
-            Id = id;
+            LocationId = locationId;
             Note = note;
         }
     }

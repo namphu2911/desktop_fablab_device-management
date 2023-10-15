@@ -11,6 +11,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Equipments
 {
     public class EquipmentDto
     {
+        public string EquipmentId { get; set; }
         public string EquipmentName { get; set; }
         public DateTime YearOfSupply { get; set; }
         public string CodeOfManage { get; set; }
@@ -18,8 +19,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Equipments
         public SupplierDto Supplier { get; set; }
         public EStatus Status { get; set; }
         public EquipmentTypeDto EquipmentType { get; set; }
-        public EquipmentDto(string equipmentName, DateTime yearOfSupply, string codeOfManage, LocationDto location, SupplierDto supplier, EStatus status, EquipmentTypeDto equipmentType)
+        public EquipmentDto(string equipmentId, string equipmentName, DateTime yearOfSupply, string codeOfManage, LocationDto location, SupplierDto supplier, EStatus status, EquipmentTypeDto equipmentType)
         {
+            EquipmentId = equipmentId;
             EquipmentName = equipmentName;
             YearOfSupply = yearOfSupply;
             CodeOfManage = codeOfManage;
