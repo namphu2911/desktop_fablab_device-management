@@ -19,12 +19,14 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Device
 {
-    public class MechanicalDeviceManagementViewModel : BaseViewModel
+    public class DeviceManagementViewModel : BaseViewModel
     {
         private readonly IApiService _apiService;
         private readonly IMapper _mapper;
         private readonly EquipmentStore _equipmentStore;
-        private readonly EquipmentTypeStore _equipmentTypeStore;
+        private readonly EquipmentTypeStore _equipmentTypeStore; 
+        private readonly SupplierStore _supplierStore;
+        private readonly LocationStore _locationStore;
         public DateTime StartDate { get; set; } = DateTime.Now.AddDays(-7).Date;
         public DateTime EndDate { get; set; } = DateTime.Now.Date;
 
@@ -126,30 +128,35 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         }
 
         //Create New Equipment
-        public string NewEquipmentId { get; set; }
-        public string NewEquipmentName { get; set; }
+        public string NewEquipmentId { get; set; } = "";
+        public string NewEquipmentName { get; set; } = "";
         public DateTime NewYearOfSupply { get; set; } = DateTime.Now.Date;
-        public string NewCodeOfManage { get; set; }
-        public string NewSupplierName { get; set; }
-        public string NewLocationId { get; set; }
-        public string NewEquipmentTypeId { get; set; }
+        public string NewCodeOfManage { get; set; } = "";
+        public string NewSupplierName { get; set; } = "";
+        public string NewLocationId { get; set; } = "";
+        public string NewEquipmentTypeId { get; set; } = "";
         public EStatus NewStatus { get; set; }
 
         public ObservableCollection<DeviceEntryViewModel> DeviceEntries { get; set; } = new();
+        public ECategory Category { get; set; }
         public ObservableCollection<string> EquipmentIds => _equipmentStore.EquipmentIds;
         public ObservableCollection<string> EquipmentNames => _equipmentStore.EquipmentNames;
         public ObservableCollection<string> EquipmentTypeIds => _equipmentTypeStore.EquipmentTypeIds;
         public ObservableCollection<string> EquipmentTypeNames => _equipmentTypeStore.EquipmentTypeNames;
+        public ObservableCollection<string> SupplierNames => _supplierStore.SupplierNames;
+        public ObservableCollection<string> LocationIds => _locationStore.LocationIds;
         public ICommand LoadHistoryGoodsReceiptLotCommand { get; set; }
         public ICommand LoadHistoryGoodsReceiptViewCommand { get; set; }
         public ICommand CreateEquipmentCommand { get; set; }
 
-        public MechanicalDeviceManagementViewModel(IApiService apiService, IMapper mapper, EquipmentStore equipmentStore, EquipmentTypeStore equipmentTypeStore)
+        public DeviceManagementViewModel(IApiService apiService, IMapper mapper, EquipmentStore equipmentStore, EquipmentTypeStore equipmentTypeStore, SupplierStore supplierStore, LocationStore locationStore)
         {
             _apiService = apiService;
             _mapper = mapper;
             _equipmentStore = equipmentStore;
             _equipmentTypeStore = equipmentTypeStore;
+            _supplierStore = supplierStore;
+            _locationStore = locationStore;
 
             LoadHistoryGoodsReceiptLotCommand = new RelayCommand(LoadHistoryGoodsReceiptLot);
             LoadHistoryGoodsReceiptViewCommand = new RelayCommand(LoadHistoryGoodsReceiptView);

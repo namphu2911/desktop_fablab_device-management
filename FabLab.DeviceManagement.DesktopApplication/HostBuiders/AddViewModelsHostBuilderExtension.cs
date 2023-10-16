@@ -1,4 +1,5 @@
 ﻿using FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels;
+using FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Device;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -15,7 +16,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.HostBuiders
         {
             host.ConfigureServices(services =>
             {
-                
+                services.AddTransient<DeviceManagementViewModel>();
                 services.AddTransient<MainViewModel>();
 
                 services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>()));

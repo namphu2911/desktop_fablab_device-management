@@ -7,7 +7,7 @@
         xmlns:prism="http://prismlibrary.com/"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:device="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Device" xmlns:borrowreturn="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.BorrowReturn" xmlns:lendreturn="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.LendReturn"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:device="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Device" xmlns:borrowreturn="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.BorrowReturn" xmlns:lendreturn="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.LendReturn" xmlns:project="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Project" xmlns:device1="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Device;assembly=FabLab.DeviceManagement.DesktopApplication.Core" d:DataContext="{d:DesignInstance Type=device1:DeviceManagementViewModel}"
         Background="{StaticResource ColorBackground}"
         Title="FabLabDeviceManagement" Height="800" Width="1300">
     
@@ -44,7 +44,7 @@
                                                                  FontWeight="Bold" Margin="0,0,50,0" />
                     </StackPanel>
                 </TabItem.Header>
-                <device:DeviceManagementView></device:DeviceManagementView>
+                <device:MechanicalDeviceManagementView DataContext="{Binding DeviceManagement}"/>
             </TabItem>
 
             <TabItem 
@@ -82,7 +82,7 @@
                                                                  FontWeight="Bold" Margin="0,0,20,0" />
                     </StackPanel>
                 </TabItem.Header>
-                <lendreturn:CreateNewProject></lendreturn:CreateNewProject>
+                <project:CreateNewProjectView></project:CreateNewProjectView>
             </TabItem>
             
             <TabItem

@@ -14,6 +14,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Services
         //Equipment
         Task<IEnumerable<EquipmentDto>> GetAllEquipmentsAsync();
         Task CreateEquipment(CreateEquipmentDto equipment);
+        Task FixEquipmentAsync(FixEquipmentDto fixDto);
+
         Task<IEnumerable<LocationDto>> GetAllLocationsAsync();
         Task CreateLocation(LocationDto location);
         Task<IEnumerable<SupplierDto>> GetAllSuppliersAsync();

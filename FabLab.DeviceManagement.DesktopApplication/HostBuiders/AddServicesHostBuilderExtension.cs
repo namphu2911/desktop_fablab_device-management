@@ -1,5 +1,8 @@
-﻿using FabLab.DeviceManagement.DesktopApplication.Core.Application.Services;
+﻿using FabLab.DeviceManagement.DesktopApplication.Core.Application.Mapping;
+using FabLab.DeviceManagement.DesktopApplication.Core.Application.Services;
+using FabLab.DeviceManagement.DesktopApplication.Core.Application.Store;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Services;
+using FabLab.DeviceManagement.DesktopApplication.Core.Infrastructure.Context;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -16,8 +19,15 @@ namespace FabLab.DeviceManagement.DesktopApplication.HostBuiders
         {
             host.ConfigureServices(services =>
             {
-            //object value = services.AddAutoMapper(typeof(ApplicationDbContext));
+                object value = services.AddAutoMapper(typeof(ApplicationDbContext));
+
+                services.AddSingleton<EquipmentStore>();
+                services.AddSingleton<EquipmentTypeStore>();
+                services.AddSingleton<LocationStore>();
+                services.AddSingleton<SupplierStore>();
+
                 services.AddSingleton<IApiService, ApiService>();
+                services.AddSingleton<IDatabaseSynchronizationService, DatabaseSynchronizationService>();
 
             });
             return host;

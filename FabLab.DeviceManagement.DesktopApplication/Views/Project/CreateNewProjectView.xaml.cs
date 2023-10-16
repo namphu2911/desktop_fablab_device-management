@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FabLab.DeviceManagement.DesktopApplication.Views.LendReturn
+namespace FabLab.DeviceManagement.DesktopApplication.Views.Project
 {
     /// <summary>
-    /// Interaction logic for CreateNewProject.xaml
+    /// Interaction logic for CreateNewProjectView.xaml
     /// </summary>
-    public partial class CreateNewProject : UserControl
+    public partial class CreateNewProjectView : UserControl
     {
-        public CreateNewProject()
+        public CreateNewProjectView()
         {
             InitializeComponent();
         }

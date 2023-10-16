@@ -81,6 +81,16 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             }
         }
 
+        public async Task FixEquipmentAsync(FixEquipmentDto fixDto)
+        {
+            var json = JsonConvert.SerializeObject(fixDto);
+            var jsonCamelCase = JsonNamingPolicy.CamelCase.ConvertName(json);
+            var content = new StringContent(jsonCamelCase, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PatchAsync($"{serverUrl}/api/Items", content);
+            response.EnsureSuccessStatusCode();
+        }
+
         public async Task<IEnumerable<LocationDto>> GetAllLocationsAsync()
         {
             HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Items");

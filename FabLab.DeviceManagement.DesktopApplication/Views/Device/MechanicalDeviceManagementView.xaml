@@ -8,9 +8,10 @@
              xmlns:local="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Device"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
              xmlns:Components="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Resources.Components" 
-             xmlns:device="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Device;assembly=FabLab.DeviceManagement.DesktopApplication.Core" d:DataContext="{d:DesignInstance Type=device:MechanicalDeviceManagementViewModel}"
+             xmlns:device="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Device;assembly=FabLab.DeviceManagement.DesktopApplication.Core" 
+             xmlns:vc="clr-namespace:FabLab.DeviceManagement.DesktopApplication.ValueConverters" 
              mc:Ignorable="d" 
-             d:DesignHeight="670" d:DesignWidth="1090"
+             d:DesignHeight="800" d:DesignWidth="1052"
              Background="{StaticResource ColorBackground}"
              Padding="0,10,0,10">
     <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
@@ -44,13 +45,27 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-
+                        
                         <TextBlock Grid.Row="0" Grid.Column="0" 
+                       Margin="10"
+                       Style="{StaticResource FieldLabel}"
+                       Text="Lĩnh vực"/>
+
+                        <ComboBox Grid.Row="0" Grid.Column="1"
+                      Margin="10"
+                      materialDesign:HintAssist.Hint="Mã loại"
+                      Style="{StaticResource ComboBox}"
+                      ItemsSource="{Binding Path=Category, Converter={vc:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      Text="{Binding Path=Category}"/>
+                        
+                        <TextBlock Grid.Row="0" Grid.Column="2" 
                        Margin="10"
                        Style="{StaticResource FieldLabel}"
                        Text="Mã loại"/>
 
-                        <ComboBox Grid.Row="0" Grid.Column="1"
+                        <ComboBox Grid.Row="0" Grid.Column="3"
                       Margin="10"
                       materialDesign:HintAssist.Hint="Mã loại"
                       Style="{StaticResource ComboBox}"
@@ -63,12 +78,12 @@
                             </ComboBox.ItemsPanel>
                         </ComboBox>
 
-                        <TextBlock Grid.Row="0" Grid.Column="2" 
+                        <TextBlock Grid.Row="0" Grid.Column="4" 
                        Margin="10"
                        Style="{StaticResource FieldLabel}"
                        Text="Tên loại"/>
 
-                        <ComboBox Grid.Row="0" Grid.Column="3"
+                        <ComboBox Grid.Row="0" Grid.Column="5"
                       Margin="10"
                       materialDesign:HintAssist.Hint="Tên loại"
                       Style="{StaticResource ComboBox}"
@@ -81,42 +96,12 @@
                             </ComboBox.ItemsPanel>
                         </ComboBox>
 
-                        <TextBlock Grid.Row="1" Grid.Column="4" 
-                       Margin="10"
-                       Style="{StaticResource FieldLabel}"
-                       Text="Từ ngày"/>
-                        <DatePicker  Grid.Row="1" Grid.Column="5"
-                         Margin="10"
-                         materialDesign:HintAssist.Hint="Từ ngày"
-                         Style="{StaticResource DatePicker}"
-                         SelectedDate="{Binding StartDate}"/>
-
-                        <TextBlock Grid.Row="1" Grid.Column="6" 
-                       Margin="10"
-                       Style="{StaticResource FieldLabel}" 
-                       Text="Đến ngày"/>
-                        <DatePicker Grid.Column="7"
-                         Margin="10,0,10,0"
-                         materialDesign:HintAssist.Hint="Đến ngày"
-                         Style="{StaticResource DatePicker}"
-                         SelectedDate="{Binding EndDate}"/>
-                    </Grid>
-
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                        <TextBlock Grid.Row="0" Grid.Column="6" 
                        Margin="10"
                        Style="{StaticResource FieldLabel}"
                        Text="Mã thiết bị"/>
 
-                        <ComboBox Grid.Row="0" Grid.Column="1"
+                        <ComboBox Grid.Row="0" Grid.Column="7"
                       Margin="10"
                       materialDesign:HintAssist.Hint="Mã thiết bị"
                       Style="{StaticResource ComboBox}"
@@ -129,12 +114,28 @@
                             </ComboBox.ItemsPanel>
                         </ComboBox>
 
-                        <TextBlock Grid.Row="0" Grid.Column="2" 
+
+
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        
+                        <TextBlock Grid.Row="0" Grid.Column="0" 
                        Margin="10"
                        Style="{StaticResource FieldLabel}" 
-                       Text="Tên hàng"/>
+                       Text="Tên thiết bị"/>
 
-                        <ComboBox Grid.Row="0" Grid.Column="3"
+                        <ComboBox Grid.Row="0" Grid.Column="1"
                       Margin="10"
                       materialDesign:HintAssist.Hint="Tên thiết bị"
                       Style="{StaticResource ComboBox}"
@@ -147,7 +148,27 @@
                             </ComboBox.ItemsPanel>
                         </ComboBox>
 
-                        <Button Grid.Row="0" Grid.Column="4"
+                        <TextBlock Grid.Row="1" Grid.Column="2" 
+                       Margin="10"
+                       Style="{StaticResource FieldLabel}"
+                       Text="Từ ngày"/>
+                        <DatePicker  Grid.Row="1" Grid.Column="3"
+                         Margin="10"
+                         materialDesign:HintAssist.Hint="Từ ngày"
+                         Style="{StaticResource DatePicker}"
+                         SelectedDate="{Binding StartDate}"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="4" 
+                       Margin="10"
+                       Style="{StaticResource FieldLabel}" 
+                       Text="Đến ngày"/>
+                        <DatePicker Grid.Column="5"
+                         Margin="10,0,10,0"
+                         materialDesign:HintAssist.Hint="Đến ngày"
+                         Style="{StaticResource DatePicker}"
+                         SelectedDate="{Binding EndDate}"/>
+
+                        <Button Grid.Row="0" Grid.Column="6"
                     Margin="10"
                     Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
                     Content="Truy xuất"
@@ -180,7 +201,7 @@
                         <DataGridTextColumn Header="Năm cấp" Width="*" Binding="{Binding YearOfSupply}"/>
                         <DataGridTextColumn Header="Mã quản lí" Width="*" Binding="{Binding CodeOfManage}"/>
                         <DataGridTextColumn Header="Vị trí" Width="*" Binding="{Binding LocationId}"/>
-                        <DataGridTextColumn Header="Nhà cung cáp" Width="*" Binding="{Binding SupplierName}"/>
+                        <DataGridTextColumn Header="NCC" Width="*" Binding="{Binding SupplierName}"/>
                         <DataGridTextColumn Header="Tình trạng" Width="*" Binding="{Binding Status}"/>
                         <DataGridTextColumn Header="Mã loại" Width="*" Binding="{Binding EquipmentTypeId}"/>
                         <DataGridTextColumn Header="Tên loại" Width="*" Binding="{Binding EquipmentTypeName}"/>
@@ -220,99 +241,127 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="auto"/>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="auto"/>
-                                            <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock Grid.Column="0"
-                                                           Text="Kho hàng:"
+                                                           Text="Tên thiết bị:"
                                                            Margin="10"
                                                            VerticalAlignment="Center"/>
                                         <TextBox Grid.Column="1"
-                                                           materialDesign:HintAssist.Hint="Kho hàng"
-                                                           Text="{Binding ItemClassId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                           materialDesign:HintAssist.Hint="Tên thiết bị"
+                                                           Text="{Binding EquipmentName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                            Margin="10"
                                                            VerticalAlignment="Center"/>
 
                                         <TextBlock Grid.Column="2"
-                                                           Text="Mã sản phẩm:"
+                                                           Text="Năm cấp:"
                                                            Margin="10"
                                                            VerticalAlignment="Center"/>
-                                        <TextBlock Grid.Column="3"
-                                                           Margin="10"
-                                                           Text="{Binding ItemId}"
-                                                           VerticalAlignment="Center"/>
+                                        <DatePicker Grid.Column="3"
+                                                    Margin="10"
+                                                    materialDesign:HintAssist.Hint="Năm cấp"
+                                                    SelectedDate="{Binding YearOfSupply, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    VerticalAlignment="Center"/>
 
                                         <TextBlock Grid.Column="4"
-                                                           Text="Đơn giá:"
+                                                           Text="Mã quản lí:"
                                                            Margin="10"
                                                            VerticalAlignment="Center"/>
                                         <TextBox Grid.Column="5"
-                                                           materialDesign:HintAssist.Hint="Đơn giá"
-                                                           Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                           materialDesign:HintAssist.Hint="Mã quản lí"
+                                                           Text="{Binding CodeOfManage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                            Margin="10"
                                                            VerticalAlignment="Center"/>
 
                                         <TextBlock Grid.Column="6"
-                                                           Text="Stockmin:"
+                                                           Text="Vị trí:"
                                                            Margin="10"
                                                            VerticalAlignment="Center"/>
-                                        <TextBox Grid.Column="7"
-                                                           materialDesign:HintAssist.Hint="Stockmin"
-                                                           Text="{Binding MinimumStockLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                           Margin="10"
-                                                           VerticalAlignment="Center"/>
-
-                                        <TextBlock Grid.Column="8"
-                                                           Text="Định mức:"
-                                                           Margin="10"
-                                                           VerticalAlignment="Center"/>
-                                        <TextBox Grid.Column="9"
-                                                           materialDesign:HintAssist.Hint="Định mức"
-                                                           Text="{Binding PacketSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                           Margin="10"
-                                                           VerticalAlignment="Center"/>
-
-                                        <TextBlock Grid.Column="10"
-                                                           Text="ĐVĐM"
-                                                           Margin="10"
-                                                           VerticalAlignment="Center"/>
-                                        <TextBox Grid.Column="11"
-                                                           materialDesign:HintAssist.Hint="ĐVĐM"
-                                                           Text="{Binding PacketUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                           Margin="10"
-                                                           VerticalAlignment="Center"/>
+                                        <ComboBox Grid.Column="7"
+                                                  Margin="10"
+                                                  materialDesign:HintAssist.Hint="Vị trí"
+                                                  Style="{StaticResource ComboBox}"
+                                                  ItemsSource="{Binding LocationIds}"
+                                                  Text="{Binding LocationId}">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel />
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
                                     </Grid>
 
                                     <Grid Grid.Row="1">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto"/>
-                                            <ColumnDefinition Width="4*"/>
+                                            <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="auto"/>
                                             <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="2*"/>
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock Grid.Column="0"
-                                                           Text="Tên sản phẩm:"
+                                                           Text="NCC:"
                                                            Margin="10"
                                                            VerticalAlignment="Center"/>
-                                        <TextBox Grid.Column="1"
-                                                           materialDesign:HintAssist.Hint="Tên sản phẩm"
-                                                           Text="{Binding ItemName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                           Margin="10"
-                                                           VerticalAlignment="Center"/>
+                                        <ComboBox Grid.Column="1"
+                                                  Margin="10"
+                                                  materialDesign:HintAssist.Hint="NCC"
+                                                  Style="{StaticResource ComboBox}"
+                                                  ItemsSource="{Binding SupplierNames}"
+                                                  Text="{Binding SupplierName}">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel />
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
 
                                         <TextBlock Grid.Column="2"
-                                                           Text="Đơn vị:"
+                                                           Text="Trạng thái:"
                                                            Margin="10"
                                                            VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="3"
                                                            Margin="10"
-                                                           Text="{Binding Unit, Mode=TwoWay}"
+                                                           Text="{Binding Status, Mode=TwoWay}"
                                                            VerticalAlignment="Center"/>
 
+                                        <TextBlock Grid.Column="4"
+                                                           Text="Mã loại:"
+                                                           Margin="10"
+                                                           VerticalAlignment="Center"/>
+                                        <ComboBox Grid.Column="5"
+                                                  Margin="10"
+                                                  materialDesign:HintAssist.Hint="Mã loại"
+                                                  Style="{StaticResource ComboBox}"
+                                                  ItemsSource="{Binding EquipmentTypeIds}"
+                                                  Text="{Binding EquipmentTypeId}">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel />
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
+
+                                        <TextBlock Grid.Column="6"
+                                                           Text="Tên loại:"
+                                                           Margin="10"
+                                                           VerticalAlignment="Center"/>
+                                        <ComboBox Grid.Column="7"
+                                                  Margin="10"
+                                                  materialDesign:HintAssist.Hint="Tên loại"
+                                                  Style="{StaticResource ComboBox}"
+                                                  ItemsSource="{Binding EquipmentTypeNames}"
+                                                  Text="{Binding EquipmentName}">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel />
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
                                     </Grid>
                                 </Grid>
                             </Border>
@@ -358,7 +407,7 @@
                                  Style="{StaticResource TextBox}"
                                  Margin="10"
                                  VerticalAlignment="Center"
-                                 Text="{Binding ItemId}"/>
+                                 Text="{Binding NewEquipmentId}"/>
 
                             <TextBlock Grid.Column="2"
                                Text="Tên thiết bị:"
@@ -371,7 +420,7 @@
                                Style="{StaticResource TextBox}"
                                Margin="10"
                                VerticalAlignment="Center"
-                               Text="{Binding ItemName}"/>
+                               Text="{Binding NewEquipmentName}"/>
                         </Grid>
 
                         <Grid Grid.Row="1">
@@ -393,8 +442,8 @@
                                   materialDesign:HintAssist.Hint="Loại thiết bị"
                                   Style="{StaticResource ComboBox}"
                                   Margin="10"
-                                  ItemsSource="{Binding Units}"
-                                  Text="{Binding Unit}">
+                                  ItemsSource="{Binding EquipmentTypeIds}"
+                                  Text="{Binding NewEquipmentTypeId}">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel />
@@ -413,7 +462,7 @@
                                  Style="{StaticResource TextBox}"
                                  Margin="10"
                                  VerticalAlignment="Center"
-                                 Text="{Binding Price}"/>
+                                 Text="{Binding NewCodeOfManage}"/>
 
                             <TextBlock Grid.Column="4"
                                Text="NCC:"
@@ -424,8 +473,8 @@
                                   materialDesign:HintAssist.Hint="NCC"
                                   Style="{StaticResource ComboBox}"
                                   Margin="10"
-                                  ItemsSource="{Binding WarehouseIds}"
-                                  Text="{Binding ItemClassId}">
+                                  ItemsSource="{Binding SupplierNames}"
+                                  Text="{Binding NewSupplierName}">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel />
@@ -455,7 +504,7 @@
                                 Margin="10"
                                 materialDesign:HintAssist.Hint="Ngày cấp"
                                 Style="{StaticResource DatePicker}"
-                                SelectedDate="{Binding StartDate}"/>
+                                SelectedDate="{Binding NewYearOfSupply}"/>
 
                             <TextBlock Grid.Column="2"
                                Text="Vị trí:"
@@ -466,8 +515,8 @@
                                   materialDesign:HintAssist.Hint="Vị trí"
                                   Style="{StaticResource ComboBox}"
                                   Margin="10"
-                                  ItemsSource="{Binding WarehouseIds}"
-                                  Text="{Binding ItemClassId}">
+                                  ItemsSource="{Binding LocationIds}"
+                                  Text="{Binding NewLocationId}">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel />
@@ -480,13 +529,14 @@
                                Style="{StaticResource FieldLabel}"
                                Margin="10"
                                VerticalAlignment="Center"/>
-                            <TextBox Grid.Column="5"
+                            <ComboBox Grid.Column="5"
                                materialDesign:HintAssist.Hint="Tình trạng"
-                               FontSize="16"
-                               Style="{StaticResource TextBox}"
+                               Style="{StaticResource ComboBox}"
                                Margin="10"
-                               VerticalAlignment="Center"
-                               Text="{Binding PacketSize}"/>                            
+                               ItemsSource="{Binding Path=NewStatus, Converter={vc:EnumToCollectionConverter}, Mode=OneTime}"
+                               SelectedValuePath="Value"
+                               DisplayMemberPath="Description"
+                               Text="{Binding Path=NewStatus}"/>
                         </Grid>
 
                         <Button Grid.Row="3"
