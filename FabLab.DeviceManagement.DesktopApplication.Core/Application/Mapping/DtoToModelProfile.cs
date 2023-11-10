@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Device;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Equipments;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Models.Equipments;
 using System;
@@ -14,6 +15,11 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Mapping
         public DtoToModelProfile()
         {
             CreateMap<EquipmentDto, Equipment>();
+            CreateMap<EquipmentDto, DeviceEntryViewModel>()
+                .ForMember(i => i.LocationId, o => o.MapFrom(dto => dto.Location.LocationId))
+                .ForMember(i => i.SupplierName, o => o.MapFrom(dto => dto.Supplier.SupplierName))
+                .ForMember(i => i.EquipmentTypeId, o => o.MapFrom(dto => dto.EquipmentType.EquipmentTypeId))
+                .ForMember(i => i.EquipmentTypeName, o => o.MapFrom(dto => dto.EquipmentType.EquipmentTypeName));
         }
     }
 }

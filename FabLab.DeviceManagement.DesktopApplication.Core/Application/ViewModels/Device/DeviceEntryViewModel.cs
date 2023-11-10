@@ -23,10 +23,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private SupplierStore? _supplierStore; 
         private LocationStore? _locationStore;
         private EquipmentTypeStore? _equipmentTypeStore;
-        public ObservableCollection<string> SupplierNames => _supplierStore!.SupplierNames;
-        public ObservableCollection<string> LocationIds => _locationStore!.LocationIds;
-        public ObservableCollection<string> EquipmentTypeIds => _equipmentTypeStore!.EquipmentTypeIds;
-        public ObservableCollection<string> EquipmentTypeNames => _equipmentTypeStore!.EquipmentTypeNames;
+        public ObservableCollection<string>? SupplierNames => _supplierStore?.SupplierNames;
+        public ObservableCollection<string>? LocationIds => _locationStore?.LocationIds;
+        public ObservableCollection<string>? EquipmentTypeIds => _equipmentTypeStore?.EquipmentTypeIds;
+        public ObservableCollection<string>? EquipmentTypeNames => _equipmentTypeStore?.EquipmentTypeNames;
         private IApiService? _apiService;
         private IMapper? _mapper;
         public string EquipmentId { get; set; }
@@ -37,9 +37,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public string SupplierName { get; set; }
         public EStatus Status { get; set; }
 
-        private string equipmentTypeId = "";
-        private string equipmentTypeName = "";
-        public string EquipmentTypeId
+        private string? equipmentTypeId;
+        private string? equipmentTypeName;
+        public string? EquipmentTypeId
         {
             get
             {
@@ -48,21 +48,16 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             set
             {
                 equipmentTypeId = value;
-                if (String.IsNullOrEmpty(value))
+                if (_equipmentTypeStore is not null && !String.IsNullOrEmpty(value))
                 {
-                    equipmentTypeName = "";
-                    OnPropertyChanged(nameof(EquipmentTypeName));
-                }
-                else
-                {
-                    var equipmentType = _equipmentTypeStore!.EquipmentTypes.First(i => i.EquipmentTypeId == equipmentTypeId);
+                    var equipmentType = _equipmentTypeStore.EquipmentTypes.First(i => i.EquipmentTypeId == equipmentTypeId);
                     equipmentTypeName = equipmentType.EquipmentTypeName;
                     OnPropertyChanged(nameof(EquipmentTypeName));
                 }
             }
 
         }
-        public string EquipmentTypeName
+        public string? EquipmentTypeName
         {
             get
             {
@@ -71,29 +66,27 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             set
             {
                 equipmentTypeName = value;
-                if (String.IsNullOrEmpty(value))
+                if (_equipmentTypeStore is not null && !String.IsNullOrEmpty(value))
                 {
-                    equipmentTypeId = "";
-                    OnPropertyChanged(nameof(EquipmentTypeId));
-                }
-                else
-                {
-                    var equipmentType = _equipmentTypeStore!.EquipmentTypes.First(i => i.EquipmentTypeName == equipmentTypeName);
+                    var equipmentType = _equipmentTypeStore.EquipmentTypes.First(i => i.EquipmentTypeName == equipmentTypeName);
                     equipmentTypeId = equipmentType.EquipmentTypeId;
                     OnPropertyChanged(nameof(EquipmentTypeId));
                 }
             }
         }
         public event Action? Updated;
+        public event Action? OnException;
         public ICommand SaveCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public DeviceEntryViewModel()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             SaveCommand = new RelayCommand(SaveAsync);
+            DeleteCommand = new RelayCommand(DeleteAsync);
         }
-        public DeviceEntryViewModel(string equipmentId, string equipmentName, DateTime yearOfSupply, string codeOfManage, string locationId, string supplierName, EStatus status, string equipmentTypeId, string equipmentTypeName) : this()
+        public DeviceEntryViewModel(string equipmentId, string equipmentName, DateTime yearOfSupply, string codeOfManage, string locationId, string supplierName, EStatus status, string? equipmentTypeId, string? equipmentTypeName) : this()
         {
             EquipmentId = equipmentId;
             EquipmentName = equipmentName;
@@ -126,7 +119,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private async void SaveAsync()
         {
 
-            FixEquipmentDto fixDto = new FixEquipmentDto(EquipmentId, EquipmentName, YearOfSupply, CodeOfManage, LocationId, SupplierName, Status, EquipmentTypeId);
+            FixEquipmentDto fixDto = new FixEquipmentDto(EquipmentId, EquipmentName, YearOfSupply, CodeOfManage, Status, LocationId, SupplierName, EquipmentTypeId);
             if (_mapper is not null && _apiService is not null)
             {
                 try
@@ -136,12 +129,34 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
                 }
                 catch (HttpRequestException)
                 {
+                    OnException?.Invoke();
                     ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
                 }
             }
             Updated?.Invoke();
+        }
 
-
+        private async void DeleteAsync()
+        {
+            if (_mapper is not null && _apiService is not null)
+            {
+                try
+                {
+                    if (MessageBox.Show("Xác nhận xóa", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        await _apiService.DeleteEquipmentAsync(EquipmentId);
+                        Updated?.Invoke();
+                        MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else { }
+                }
+                catch (HttpRequestException)
+                {
+                    OnException?.Invoke();
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                }
+            }
+            
         }
     }
 }

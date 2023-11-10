@@ -20,7 +20,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Helper
             // If no description is found, the least we can do is replace underscores with spaces
             // You can add your own custom default formatting logic here
             TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
-            return ti.ToTitleCase(ti.ToLower(value.ToString().Replace("_", " ")));
+            return ti.ToTitleCase(ti.ToLower(value.ToString()));
         }
 
         public static IEnumerable<ValueDescription> GetAllValuesAndDescriptions(Type t)

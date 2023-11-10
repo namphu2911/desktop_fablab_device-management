@@ -24,7 +24,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Store
         }
         public void SetEquipment(IEnumerable<Equipment> equipments)
         {
-            Equipments = Equipments.ToList();
+            Equipments = equipments.ToList();
             EquipmentIds = new ObservableCollection<string>(Equipments.Select(i => i.EquipmentId).OrderBy(s => s));
             EquipmentNames = new ObservableCollection<string>(Equipments.Select(i => i.EquipmentName).OrderBy(s => s));
             CodeOfManages = new ObservableCollection<string>(Equipments.Select(i => i.CodeOfManage).OrderBy(s => s));

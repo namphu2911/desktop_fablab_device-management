@@ -1,6 +1,7 @@
 ﻿using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Equipments;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Locations;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Suppliers;
+using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Models.Equipments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,10 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Services
     {
         //Equipment
         Task<IEnumerable<EquipmentDto>> GetAllEquipmentsAsync();
+        Task<IEnumerable<EquipmentDto>> GetEquipmentsRecordsAsync(DateTime startDate, DateTime endDate, string equipmentId, string equipmentTypeId, ECategory category);
         Task CreateEquipment(CreateEquipmentDto equipment);
         Task FixEquipmentAsync(FixEquipmentDto fixDto);
+        Task DeleteEquipmentAsync(string equipmentId);
 
         Task<IEnumerable<LocationDto>> GetAllLocationsAsync();
         Task CreateLocation(LocationDto location);

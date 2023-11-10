@@ -145,8 +145,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public ObservableCollection<string> EquipmentTypeNames => _equipmentTypeStore.EquipmentTypeNames;
         public ObservableCollection<string> SupplierNames => _supplierStore.SupplierNames;
         public ObservableCollection<string> LocationIds => _locationStore.LocationIds;
-        public ICommand LoadHistoryGoodsReceiptLotCommand { get; set; }
-        public ICommand LoadHistoryGoodsReceiptViewCommand { get; set; }
+        public ICommand LoadDeviceEntriesCommand { get; set; }
+        public ICommand LoadDeviceManagementViewCommand { get; set; }
         public ICommand CreateEquipmentCommand { get; set; }
 
         public DeviceManagementViewModel(IApiService apiService, IMapper mapper, EquipmentStore equipmentStore, EquipmentTypeStore equipmentTypeStore, SupplierStore supplierStore, LocationStore locationStore)
@@ -158,57 +158,37 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             _supplierStore = supplierStore;
             _locationStore = locationStore;
 
-            LoadHistoryGoodsReceiptLotCommand = new RelayCommand(LoadHistoryGoodsReceiptLot);
-            LoadHistoryGoodsReceiptViewCommand = new RelayCommand(LoadHistoryGoodsReceiptView);
+            LoadDeviceEntriesCommand = new RelayCommand(LoadDeviceEntries);
+            LoadDeviceManagementViewCommand = new RelayCommand(LoadDeviceManagementView);
             CreateEquipmentCommand = new RelayCommand(CreateEquipmentAsync);
         }
 
-        private void LoadHistoryGoodsReceiptView()
+        private void LoadDeviceManagementView()
         {
             OnPropertyChanged(nameof(EquipmentIds));
             OnPropertyChanged(nameof(EquipmentNames));
             OnPropertyChanged(nameof(EquipmentTypeIds));
             OnPropertyChanged(nameof(EquipmentTypeNames));
+            OnPropertyChanged(nameof(LocationIds));
+            OnPropertyChanged(nameof(SupplierNames));
+
         }
 
-        private async void LoadHistoryGoodsReceiptLot()
+        private async void LoadDeviceEntries()
         {
             try
             {
-                //if (!String.IsNullOrEmpty(Supplier) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName))
-                //{
-                //    var historyGoodsReceiptLots = await _apiService.GetHistoryGoodsReceiptLotsSupplierAsync(StartDate, EndDate, Supplier);
-                //    var viewModels = historyGoodsReceiptLots.SelectMany(g =>
-                //                                          g.Lots.Select(gi =>
-                //                                                new HistoryGoodsReceiptLotViewModel(
-                //                                                    gi.Item.ItemClassId,
-                //                                                    g.Supplier,
-                //                                                    gi.Item.ItemId,
-                //                                                    gi.Item.ItemName,
-                //                                                    gi.Item.Unit,
-                //                                                    gi.GoodsReceiptLotId,
-                //                                                    gi.Quantity,
-                //                                                    gi.Note)));
-                //    HistoryGoodsReceiptLots = new(viewModels);
-                //}
-                //else if ((!String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(Supplier))
-                //    || (!String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(Supplier) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName)))
-                //{
-                //    var historyGoodsReceiptLots = await _apiService.GetHistoryGoodsReceiptLotsAsync(WarehouseId, ItemId, StartDate, EndDate);
-                //    var viewModels = historyGoodsReceiptLots.SelectMany(g =>
-                //                                          g.Lots.Select(gi =>
-                //                                                new HistoryGoodsReceiptLotViewModel(
-                //                                                    gi.Item.ItemClassId,
-                //                                                    g.Supplier,
-                //                                                    gi.Item.ItemId,
-                //                                                    gi.Item.ItemName,
-                //                                                    gi.Item.Unit,
-                //                                                    gi.GoodsReceiptLotId,
-                //                                                    gi.Quantity,
-                //                                                    gi.Note)));
-                //    HistoryGoodsReceiptLots = new(viewModels);
-                //}
-
+                var results = await _apiService.GetEquipmentsRecordsAsync(StartDate, EndDate, EquipmentId, EquipmentTypeId, Category);
+                var viewModels = _mapper.Map<IEnumerable<EquipmentDto>, IEnumerable<DeviceEntryViewModel>>(results);
+                DeviceEntries = new(viewModels);
+                foreach (var entry in DeviceEntries)
+                {
+                    entry.SetApiService(_apiService);
+                    entry.SetMapper(_mapper);
+                    entry.SetStore(_supplierStore, _locationStore, _equipmentTypeStore);
+                    entry.Updated += LoadDeviceEntries;
+                    entry.OnException += Error;
+                }
             }
             catch (HttpRequestException)
             {
@@ -216,21 +196,27 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             }
         }
 
+        private void Error()
+        {
+            ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+        }
+
         private async void CreateEquipmentAsync()
         {
-            var createItemDto = new CreateEquipmentDto(
+            var createDto = new CreateEquipmentDto(
                 NewEquipmentId,
                 NewEquipmentName,
                 NewYearOfSupply,
-                NewCodeOfManage, 
+                NewCodeOfManage,
+                NewStatus,
                 NewLocationId, 
                 NewSupplierName,
-                NewStatus, 
                 NewEquipmentTypeId);
             try
             {
-                await _apiService.CreateEquipment(createItemDto);
-                //LoadManageItemView();
+                await _apiService.CreateEquipment(createDto);
+                LoadDeviceEntries();
+                LoadDeviceManagementView();
             }
             catch (HttpRequestException)
             {
