@@ -7,7 +7,10 @@
         xmlns:prism="http://prismlibrary.com/"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:device="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Device" xmlns:borrowreturn="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.BorrowReturn" xmlns:lendreturn="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.LendReturn" xmlns:project="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Project" xmlns:device1="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.Device;assembly=FabLab.DeviceManagement.DesktopApplication.Core" d:DataContext="{d:DesignInstance Type=device1:DeviceManagementViewModel}"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+        xmlns:borrowreturn="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.BorrowReturn" 
+        xmlns:lendreturn="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.LendReturn" 
+        xmlns:project="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Project" xmlns:device="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Device" xmlns:viewmodels="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels;assembly=FabLab.DeviceManagement.DesktopApplication.Core" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         Background="{StaticResource ColorBackground}"
         Title="FabLabDeviceManagement" Height="800" Width="1300">
 
@@ -49,27 +52,11 @@
                                                                  FontWeight="Bold" Margin="0,0,50,0" />
                     </StackPanel>
                 </TabItem.Header>
-                <device:MechanicalDeviceManagementView DataContext="{Binding DeviceManagement}"/>
+                <device:DeviceManagementNavigationView DataContext="{Binding DeviceManagementNavigation}"/>
+
             </TabItem>
 
-            <TabItem 
-                Style="{StaticResource TabItemStyle}" 
-                Height="50">
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <materialDesign:PackIcon Kind="WrenchCogOutline" 
-                                                     Width="30" Height="30" 
-                                                     HorizontalAlignment="Center" 
-                                                     VerticalAlignment="Center" 
-                                                     Margin="0,0,6,0"/>
-                        <HeaderedContentControl  Content="Quản lý bảo trì"
-                                                                 HorizontalAlignment="Center"
-                                                                 FontSize="20"
-                                                                 FontWeight="Bold" Margin="0,0,58,0" />
-                    </StackPanel>
-                </TabItem.Header>
-                <TextBlock Text="Content for Tab 3"/>
-            </TabItem>
+            
             
             <TabItem 
                 Style="{StaticResource TabItemStyle}" 
@@ -87,7 +74,6 @@
                                                                  FontWeight="Bold" Margin="0,0,20,0" />
                     </StackPanel>
                 </TabItem.Header>
-                <project:CreateNewProjectView></project:CreateNewProjectView>
             </TabItem>
             
             <TabItem
@@ -126,7 +112,6 @@
                                                  Margin="0,0,74,0"/>
                     </StackPanel>
                 </TabItem.Header>
-                <borrowreturn:CreateNewRequestView></borrowreturn:CreateNewRequestView>
             </TabItem>
 
             <TabItem x:Name="Tag2"
@@ -147,7 +132,25 @@
                                                  Margin="0,0,50,0"/>
                     </StackPanel>
                 </TabItem.Header>
-                <borrowreturn:DeviceCategoryView></borrowreturn:DeviceCategoryView>
+            </TabItem>
+
+            <TabItem 
+                Style="{StaticResource TabItemStyle}" 
+                Height="50">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <materialDesign:PackIcon Kind="WrenchCogOutline" 
+                                                     Width="30" Height="30" 
+                                                     HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Center" 
+                                                     Margin="0,0,6,0"/>
+                        <HeaderedContentControl  Content="Quản lý bảo trì"
+                                                                 HorizontalAlignment="Center"
+                                                                 FontSize="20"
+                                                                 FontWeight="Bold" Margin="0,0,58,0" />
+                    </StackPanel>
+                </TabItem.Header>
+                <TextBlock Text="Content for Tab 3"/>
             </TabItem>
         </TabControl>
     </materialDesign:Card>

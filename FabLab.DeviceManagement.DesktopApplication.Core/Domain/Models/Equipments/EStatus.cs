@@ -9,7 +9,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Models.Equipmen
     public enum EStatus
     {
         Active = 0,
-        Inactive = 1 ,
+        Inactive = 1,
         NonFunctional = 2,
         Maintenance = 3
     }

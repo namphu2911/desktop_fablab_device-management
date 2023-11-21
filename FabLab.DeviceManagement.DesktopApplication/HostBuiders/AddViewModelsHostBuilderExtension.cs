@@ -16,7 +16,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.HostBuiders
         {
             host.ConfigureServices(services =>
             {
+                services.AddTransient<DeviceManagementNavigationViewModel>();
                 services.AddTransient<DeviceManagementViewModel>();
+                services.AddTransient<EquipmentTypeViewModel>();
+                services.AddTransient<MiscellaneousDataViewModel>();
+
+
                 services.AddTransient<MainViewModel>();
 
                 services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>()));

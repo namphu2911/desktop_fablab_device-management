@@ -12,17 +12,17 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Equipments
         public string equipmentId { get; set; }
         public string equipmentName { get; set; }
         public DateTime yearOfSupply { get; set; }
-        public string codeOfManage { get; set; }
+        public string codeOfManager { get; set; }
         public EStatus status { get; set; }
         public string locationId { get; set; }
         public string supplierName { get; set; }
         public string equipmentTypeId { get; set; }
-        public CreateEquipmentDto(string equipmentId, string equipmentName, DateTime yearOfSupply, string codeOfManage, EStatus status, string locationId, string supplierName, string equipmentTypeId)
+        public CreateEquipmentDto(string equipmentId, string equipmentName, DateTime yearOfSupply, string codeOfManager, EStatus status, string locationId, string supplierName, string equipmentTypeId)
         {
             this.equipmentId = equipmentId;
             this.equipmentName = equipmentName;
             this.yearOfSupply = yearOfSupply;
-            this.codeOfManage = codeOfManage;
+            this.codeOfManager = codeOfManager;
             this.status = status;
             this.locationId = locationId;
             this.supplierName = supplierName;

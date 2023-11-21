@@ -10,12 +10,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Models.Equipmen
     {
         public string EquipmentId { get; set; }
         public string EquipmentName { get; set; }
-        public string CodeOfManage { get; set; }
-        public Equipment(string equipmentId, string equipmentName, string codeOfManage)
+        public string CodeOfManager { get; set; }
+        public Equipment(string equipmentId, string equipmentName, string codeOfManager)
         {
             EquipmentId = equipmentId;
             EquipmentName = equipmentName;
-            CodeOfManage = codeOfManage;
+            CodeOfManager = codeOfManager;
         }
     }
 }

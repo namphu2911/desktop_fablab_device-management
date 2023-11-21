@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Equipments
+namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.EquipmentTypes
 {
     public class EquipmentTypeDto
     {

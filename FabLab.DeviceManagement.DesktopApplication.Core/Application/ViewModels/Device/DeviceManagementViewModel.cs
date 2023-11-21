@@ -29,103 +29,109 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private readonly LocationStore _locationStore;
         public DateTime StartDate { get; set; } = DateTime.Now.AddDays(-7).Date;
         public DateTime EndDate { get; set; } = DateTime.Now.Date;
+        public string YearSelected { get; set; } = "";
 
         private string equipmentId = "";
         private string equipmentName = "";
         private string equipmentTypeId = "";
         private string equipmentTypeName = "";
 
-        public string EquipmentId
-        {
-            get
-            {
-                return equipmentId;
-            }
-            set
-            {
-                equipmentId = value;
-                if (String.IsNullOrEmpty(value))
-                {
-                    equipmentName = "";
-                    OnPropertyChanged(nameof(EquipmentName));
-                }
-                else
-                {
-                    var equipment = _equipmentStore.Equipments.First(i => i.EquipmentId == equipmentId);
-                    equipmentName = equipment.EquipmentName;
-                    OnPropertyChanged(nameof(EquipmentName));
-                }
-            }
+        public string EquipmentId { get; set; } = "";
+        public string EquipmentName { get; set; } = "";
+        public string EquipmentTypeId { get; set; } = "";
+        public string EquipmentTypeName { get; set; } = "";
 
-        }
-        public string EquipmentName
-        {
-            get
-            {
-                return equipmentName;
-            }
-            set
-            {
-                equipmentName = value;
-                if (String.IsNullOrEmpty(value))
-                {
-                    equipmentId = "";
-                    OnPropertyChanged(nameof(EquipmentId));
-                }
-                else
-                {
-                    var equipment = _equipmentStore.Equipments.First(i => i.EquipmentName == equipmentName);
-                    equipmentId = equipment.EquipmentId;
-                    OnPropertyChanged(nameof(EquipmentId));
-                }
-            }
-        }
+        //public string EquipmentId
+        //{
+        //    get
+        //    {
+        //        return equipmentId;
+        //    }
+        //    set
+        //    {
+        //        equipmentId = value;
+        //        if (String.IsNullOrEmpty(value))
+        //        {
+        //            equipmentName = "";
+        //            OnPropertyChanged(nameof(EquipmentName));
+        //        }
+        //        else
+        //        {
+        //            var equipment = _equipmentStore.Equipments.First(i => i.EquipmentId == equipmentId);
+        //            equipmentName = equipment.EquipmentName;
+        //            OnPropertyChanged(nameof(EquipmentName));
+        //        }
+        //    }
 
-        public string EquipmentTypeId
-        {
-            get
-            {
-                return equipmentTypeId;
-            }
-            set
-            {
-                equipmentTypeId = value;
-                if (String.IsNullOrEmpty(value))
-                {
-                    equipmentTypeName = "";
-                    OnPropertyChanged(nameof(EquipmentTypeName));
-                }
-                else
-                {
-                    var equipmentType = _equipmentTypeStore.EquipmentTypes.First(i => i.EquipmentTypeId == equipmentTypeId);
-                    equipmentTypeName = equipmentType.EquipmentTypeName;
-                    OnPropertyChanged(nameof(EquipmentTypeName));
-                }
-            }
+        //}
+        //public string EquipmentName
+        //{
+        //    get
+        //    {
+        //        return equipmentName;
+        //    }
+        //    set
+        //    {
+        //        equipmentName = value;
+        //        if (String.IsNullOrEmpty(value))
+        //        {
+        //            equipmentId = "";
+        //            OnPropertyChanged(nameof(EquipmentId));
+        //        }
+        //        else
+        //        {
+        //            var equipment = _equipmentStore.Equipments.First(i => i.EquipmentName == equipmentName);
+        //            equipmentId = equipment.EquipmentId;
+        //            OnPropertyChanged(nameof(EquipmentId));
+        //        }
+        //    }
+        //}
 
-        }
-        public string EquipmentTypeName
-        {
-            get
-            {
-                return equipmentTypeName;
-            }
-            set
-            {
-                equipmentTypeName = value;
-                if (String.IsNullOrEmpty(value))
-                {
-                    equipmentTypeId = "";
-                    OnPropertyChanged(nameof(EquipmentTypeId));
-                }
-                else
-                {
-                    var equipmentType = _equipmentTypeStore.EquipmentTypes.First(i => i.EquipmentTypeName == equipmentTypeName);
-                    equipmentTypeId = equipmentType.EquipmentTypeId;
-                    OnPropertyChanged(nameof(EquipmentTypeId));
-                }
-            }
-        }
+        //public string EquipmentTypeId
+        //{
+        //    get
+        //    {
+        //        return equipmentTypeId;
+        //    }
+        //    set
+        //    {
+        //        equipmentTypeId = value;
+        //        if (String.IsNullOrEmpty(value))
+        //        {
+        //            equipmentTypeName = "";
+        //            OnPropertyChanged(nameof(EquipmentTypeName));
+        //        }
+        //        else
+        //        {
+        //            var equipmentType = _equipmentTypeStore.EquipmentTypes.First(i => i.EquipmentTypeId == equipmentTypeId);
+        //            equipmentTypeName = equipmentType.EquipmentTypeName;
+        //            OnPropertyChanged(nameof(EquipmentTypeName));
+        //        }
+        //    }
+
+        //}
+        //public string EquipmentTypeName
+        //{
+        //    get
+        //    {
+        //        return equipmentTypeName;
+        //    }
+        //    set
+        //    {
+        //        equipmentTypeName = value;
+        //        if (String.IsNullOrEmpty(value))
+        //        {
+        //            equipmentTypeId = "";
+        //            OnPropertyChanged(nameof(EquipmentTypeId));
+        //        }
+        //        else
+        //        {
+        //            var equipmentType = _equipmentTypeStore.EquipmentTypes.First(i => i.EquipmentTypeName == equipmentTypeName);
+        //            equipmentTypeId = equipmentType.EquipmentTypeId;
+        //            OnPropertyChanged(nameof(EquipmentTypeId));
+        //        }
+        //    }
+        //}
 
         //Create New Equipment
         public string NewEquipmentId { get; set; } = "";
@@ -136,7 +142,8 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public string NewLocationId { get; set; } = "";
         public string NewEquipmentTypeId { get; set; } = "";
         public EStatus NewStatus { get; set; }
-
+        private List<EquipmentDto> equipments = new();
+        private List<EquipmentDto> filteredEquipments = new();
         public ObservableCollection<DeviceEntryViewModel> DeviceEntries { get; set; } = new();
         public ECategory Category { get; set; }
         public ObservableCollection<string> EquipmentIds => _equipmentStore.EquipmentIds;
@@ -145,7 +152,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public ObservableCollection<string> EquipmentTypeNames => _equipmentTypeStore.EquipmentTypeNames;
         public ObservableCollection<string> SupplierNames => _supplierStore.SupplierNames;
         public ObservableCollection<string> LocationIds => _locationStore.LocationIds;
+        public ObservableCollection<string> Years { get; set; } = new();    
         public ICommand LoadDeviceEntriesCommand { get; set; }
+        public ICommand LoadInitialCommand { get; set; }
         public ICommand LoadDeviceManagementViewCommand { get; set; }
         public ICommand CreateEquipmentCommand { get; set; }
 
@@ -157,7 +166,13 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             _equipmentTypeStore = equipmentTypeStore;
             _supplierStore = supplierStore;
             _locationStore = locationStore;
+            Years = new ObservableCollection<string>();
+            for (int i = DateTime.Now.Year; i >= 1975; i--)
+            {
+                Years.Add(i.ToString());
+            }
 
+            LoadInitialCommand = new RelayCommand(LoadInitial);
             LoadDeviceEntriesCommand = new RelayCommand(LoadDeviceEntries);
             LoadDeviceManagementViewCommand = new RelayCommand(LoadDeviceManagementView);
             CreateEquipmentCommand = new RelayCommand(CreateEquipmentAsync);
@@ -165,6 +180,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         private void LoadDeviceManagementView()
         {
+            LoadInitial();
             OnPropertyChanged(nameof(EquipmentIds));
             OnPropertyChanged(nameof(EquipmentNames));
             OnPropertyChanged(nameof(EquipmentTypeIds));
@@ -174,13 +190,98 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
 
         }
 
-        private async void LoadDeviceEntries()
+        private async void LoadInitial()
+        {
+            Category = ECategory.All;
+
+            YearSelected = "";
+            EquipmentId = "";
+            EquipmentName = "";
+            EquipmentTypeId = "";
+            EquipmentTypeName = "";
+
+            try
+            {
+                equipments = (await _apiService.GetAllEquipmentsAsync()).ToList();
+                //var filteredEquipmentsDtos = equipments.Where(i => i.ItemId.Contains(ItemIdFilter));
+                
+                var viewModels = _mapper.Map<IEnumerable<EquipmentDto>, IEnumerable<DeviceEntryViewModel>>(equipments);
+                DeviceEntries = new(viewModels);
+                
+                foreach (var entry in DeviceEntries)
+                {
+                    entry.SetApiService(_apiService);
+                    entry.SetMapper(_mapper);
+                    entry.SetStore(_supplierStore, _locationStore, _equipmentTypeStore);
+                    entry.Updated += LoadDeviceEntries;
+                    entry.OnException += Error;
+                }
+            }
+            catch (HttpRequestException)
+            {
+                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+            }
+        }
+
+        private void LoadDeviceEntries()
         {
             try
             {
-                var results = await _apiService.GetEquipmentsRecordsAsync(StartDate, EndDate, EquipmentId, EquipmentTypeId, Category);
-                var viewModels = _mapper.Map<IEnumerable<EquipmentDto>, IEnumerable<DeviceEntryViewModel>>(results);
-                DeviceEntries = new(viewModels);
+                if (Category == ECategory.All)
+                {
+                    filteredEquipments = equipments;
+                    if (!String.IsNullOrEmpty(YearSelected))
+                    {
+                        filteredEquipments = equipments.Where(i => i.YearOfSupply.Year.ToString() == YearSelected).ToList();
+                    }
+                    if (!String.IsNullOrEmpty(EquipmentId))
+                    {
+                        filteredEquipments = equipments.Where(i => i.EquipmentId.Contains(EquipmentId)).ToList();
+                    }
+                    if (!String.IsNullOrEmpty(EquipmentName))
+                    {
+                        filteredEquipments = equipments.Where(i => i.EquipmentName.Contains(EquipmentName)).ToList();
+                    }
+                    if (!String.IsNullOrEmpty(EquipmentTypeId))
+                    {
+                        filteredEquipments = equipments.Where(i => i.EquipmentType.EquipmentTypeId.Contains(EquipmentTypeId)).ToList();
+                    }
+                    if (!String.IsNullOrEmpty(EquipmentTypeName))
+                    {
+                        filteredEquipments = equipments.Where(i => i.EquipmentType.EquipmentTypeName.Contains(equipmentTypeName)).ToList();
+                    }
+                    //var filteredEquipmentsDtos = equipments.Where(i => i.ItemId.Contains(ItemIdFilter));
+                    var viewModels = _mapper.Map<IEnumerable<EquipmentDto>, IEnumerable<DeviceEntryViewModel>>(filteredEquipments);
+                    DeviceEntries = new(viewModels);
+                }
+                else
+                {
+                    filteredEquipments = equipments.Where(i => i.EquipmentType.Category == Category).ToList();
+                    if (!String.IsNullOrEmpty(YearSelected))
+                    {
+                        filteredEquipments = equipments.Where(i => i.YearOfSupply.Year.ToString() == YearSelected).ToList();
+                    }
+                    if (!String.IsNullOrEmpty(EquipmentId))
+                    {
+                        filteredEquipments = equipments.Where(i => i.EquipmentId.Contains(EquipmentId)).ToList();
+                    }
+                    if (!String.IsNullOrEmpty(EquipmentName))
+                    {
+                        filteredEquipments = equipments.Where(i => i.EquipmentName.Contains(EquipmentName)).ToList();
+                    }
+                    if (!String.IsNullOrEmpty(EquipmentTypeId))
+                    {
+                        filteredEquipments = equipments.Where(i => i.EquipmentType.EquipmentTypeId.Contains(EquipmentTypeId)).ToList();
+                    }
+                    if (!String.IsNullOrEmpty(EquipmentTypeName))
+                    {
+                        filteredEquipments = equipments.Where(i => i.EquipmentType.EquipmentTypeName.Contains(equipmentTypeName)).ToList();
+                    }
+                    //var filteredEquipmentsDtos = equipments.Where(i => i.ItemId.Contains(ItemIdFilter));
+                    var viewModels = _mapper.Map<IEnumerable<EquipmentDto>, IEnumerable<DeviceEntryViewModel>>(filteredEquipments);
+                    DeviceEntries = new(viewModels);
+                }
+
                 foreach (var entry in DeviceEntries)
                 {
                     entry.SetApiService(_apiService);

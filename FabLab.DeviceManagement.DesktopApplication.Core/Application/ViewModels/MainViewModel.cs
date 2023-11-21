@@ -14,12 +14,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
     public class MainViewModel : BaseViewModel
     {
         private readonly IDatabaseSynchronizationService _databaseSynchronizationService;
-        public DeviceManagementViewModel DeviceManagement { get; set; }
+        public DeviceManagementNavigationViewModel DeviceManagementNavigation { get; set; }
         public ICommand LoadDataStoreCommand { get; set; }
-        public MainViewModel(IDatabaseSynchronizationService databaseSynchronizationService, DeviceManagementViewModel deviceManagement)
+        public MainViewModel(IDatabaseSynchronizationService databaseSynchronizationService, DeviceManagementNavigationViewModel deviceManagementNavigation)
         {
             _databaseSynchronizationService = databaseSynchronizationService;
-            DeviceManagement = deviceManagement;
+            DeviceManagementNavigation = deviceManagementNavigation;
             LoadDataStoreCommand = new RelayCommand(LoadDataStoreAsync);
         }
 

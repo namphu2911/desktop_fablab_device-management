@@ -32,7 +32,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         public string EquipmentId { get; set; }
         public string EquipmentName { get; set; }
         public DateTime YearOfSupply { get; set; }
-        public string CodeOfManage { get; set; }
+        public string CodeOfManager { get; set; }
         public string LocationId { get; set; }
         public string SupplierName { get; set; }
         public EStatus Status { get; set; }
@@ -86,12 +86,12 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
             SaveCommand = new RelayCommand(SaveAsync);
             DeleteCommand = new RelayCommand(DeleteAsync);
         }
-        public DeviceEntryViewModel(string equipmentId, string equipmentName, DateTime yearOfSupply, string codeOfManage, string locationId, string supplierName, EStatus status, string? equipmentTypeId, string? equipmentTypeName) : this()
+        public DeviceEntryViewModel(string equipmentId, string equipmentName, DateTime yearOfSupply, string codeOfManager, string locationId, string supplierName, EStatus status, string? equipmentTypeId, string? equipmentTypeName) : this()
         {
             EquipmentId = equipmentId;
             EquipmentName = equipmentName;
             YearOfSupply = yearOfSupply;
-            CodeOfManage = codeOfManage;
+            CodeOfManager = codeOfManager;
             LocationId = locationId;
             SupplierName = supplierName;
             Status = status;
@@ -119,7 +119,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels
         private async void SaveAsync()
         {
 
-            FixEquipmentDto fixDto = new FixEquipmentDto(EquipmentId, EquipmentName, YearOfSupply, CodeOfManage, Status, LocationId, SupplierName, EquipmentTypeId);
+            FixEquipmentDto fixDto = new FixEquipmentDto(EquipmentId, EquipmentName, YearOfSupply, CodeOfManager, Status, LocationId, SupplierName, EquipmentTypeId);
             if (_mapper is not null && _apiService is not null)
             {
                 try

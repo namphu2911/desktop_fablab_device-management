@@ -27,7 +27,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Store
             Equipments = equipments.ToList();
             EquipmentIds = new ObservableCollection<string>(Equipments.Select(i => i.EquipmentId).OrderBy(s => s));
             EquipmentNames = new ObservableCollection<string>(Equipments.Select(i => i.EquipmentName).OrderBy(s => s));
-            CodeOfManages = new ObservableCollection<string>(Equipments.Select(i => i.CodeOfManage).OrderBy(s => s));
+            CodeOfManages = new ObservableCollection<string>(Equipments.Select(i => i.CodeOfManager).OrderBy(s => s));
         }
     }
 }

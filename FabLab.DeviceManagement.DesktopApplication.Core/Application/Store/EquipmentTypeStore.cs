@@ -1,5 +1,5 @@
 ﻿using FabLab.DeviceManagement.DesktopApplication.Core.Application.ViewModels.SeedWork;
-using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Equipments;
+using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.EquipmentTypes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

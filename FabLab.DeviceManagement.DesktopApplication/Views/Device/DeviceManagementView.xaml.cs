@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace FabLab.DeviceManagement.DesktopApplication.Views.Device
 {
     /// <summary>
-    /// Interaction logic for MechanicalDeviceManagementView.xaml
+    /// Interaction logic for DeviceManagementView.xaml
     /// </summary>
-    public partial class MechanicalDeviceManagementView : UserControl
+    public partial class DeviceManagementView : UserControl
     {
-        public MechanicalDeviceManagementView()
+        public DeviceManagementView()
         {
             InitializeComponent();
         }

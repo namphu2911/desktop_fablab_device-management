@@ -8,8 +8,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Domain.Models.Equipmen
 {
     public enum ECategory
     {
-        Mechanical,
-        IoT_Robotics,
-        Automation
+        All = 0,
+        Mechanical = 1,
+        IoT_Robotics = 2,
+        Automation = 3
     }
 }

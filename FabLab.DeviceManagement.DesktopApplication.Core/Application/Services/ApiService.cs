@@ -1,5 +1,6 @@
 ﻿using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Equipments;
+using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.EquipmentTypes;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Locations;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Dtos.Suppliers;
 using FabLab.DeviceManagement.DesktopApplication.Core.Domain.Exceptions;
@@ -21,7 +22,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
     public class ApiService : IApiService
     {
         private readonly HttpClient _httpClient;
-        private const string serverUrl = "https://localhost:7121";
+        private const string serverUrl = "https://fablab20231120154444old.azurewebsites.net";
 
         public ApiService()
         {
@@ -30,7 +31,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
 
         public async Task<IEnumerable<EquipmentDto>> GetAllEquipmentsAsync()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Equipments");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Equipment/Search1");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -43,12 +44,9 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             return equipments;
         }
 
-        public async Task<IEnumerable<EquipmentDto>> GetEquipmentsRecordsAsync(DateTime startDate, DateTime endDate, string equipmentId, string equipmentTypeId, ECategory category)
+        public async Task<IEnumerable<EquipmentDto>> GetEquipmentsRecordsAsync(string yearSelected, string equipmentId, string equipmentTypeId, ECategory? category)
         {
-            string startDateString = startDate.ToString("yyyy-MM-dd");
-            string endDateString = endDate.ToString("yyyy-MM-dd");
-
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Equipments/queries?StartTime={startDateString}&EndTime={endDateString}&equipmentId={equipmentId}&equipmentTypeId={equipmentTypeId}&category={category}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Equipment/Search1?equipmentId={equipmentId}&YearOfSupply={yearSelected}&equipmentTypeId={equipmentTypeId}&Category={category}");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -65,7 +63,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
         {
             var json = JsonConvert.SerializeObject(equipment);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _httpClient.PostAsync($"{serverUrl}/api/Equipments", content);
+            HttpResponseMessage response = await _httpClient.PostAsync($"{serverUrl}/api/Equipment", content);
 
             try
             {
@@ -102,20 +100,20 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             var json = JsonConvert.SerializeObject(fixDto);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await _httpClient.PutAsync($"{serverUrl}/api/Equipments/update", content);
+            HttpResponseMessage response = await _httpClient.PutAsync($"{serverUrl}/api/Equipment", content);
             response.EnsureSuccessStatusCode();
         }
 
         public async Task DeleteEquipmentAsync(string equipmentId)
         {
-            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}/api/Equipments/delete/{equipmentId}");
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}/api/Equipment?name={equipmentId}");
 
             response.EnsureSuccessStatusCode();
         }
 
         public async Task<IEnumerable<LocationDto>> GetAllLocationsAsync()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Locations");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Location");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -136,7 +134,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             var content = new StringContent(jsonCamelCase, Encoding.UTF8, "application/json");
 
 
-            HttpResponseMessage response = await _httpClient.PostAsync($"{serverUrl}/api/Locations", content);
+            HttpResponseMessage response = await _httpClient.PostAsync($"{serverUrl}/api/Location", content);
 
             try
             {
@@ -168,9 +166,25 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             }
         }
 
+        public async Task FixLocationAsync(LocationDto fixDto)
+        {
+            var json = JsonConvert.SerializeObject(fixDto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PutAsync($"{serverUrl}/api/Location", content);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task DeleteLocationAsync(string locationId)
+        {
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}/api/Location?name={locationId}");
+
+            response.EnsureSuccessStatusCode();
+        }
+
         public async Task<IEnumerable<SupplierDto>> GetAllSuppliersAsync()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Suppliers");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Supplier");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -191,7 +205,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             var content = new StringContent(jsonCamelCase, Encoding.UTF8, "application/json");
 
 
-            HttpResponseMessage response = await _httpClient.PostAsync($"{serverUrl}/api/Suppliers", content);
+            HttpResponseMessage response = await _httpClient.PostAsync($"{serverUrl}/api/Supplier", content);
 
             try
             {
@@ -223,9 +237,25 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             }
         }
 
+        public async Task FixSupplierAsync(SupplierDto fixDto)
+        {
+            var json = JsonConvert.SerializeObject(fixDto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PutAsync($"{serverUrl}/api/Supplier", content);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task DeleteSupplierAsync(string supplierName)
+        {
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}/api/Supplier?name={supplierName}");
+
+            response.EnsureSuccessStatusCode();
+        }
+
         public async Task<IEnumerable<EquipmentTypeDto>> GetAllEquipmentTypesAsync()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/EquipmentTypes");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/EquipmentType");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -246,7 +276,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
             var content = new StringContent(jsonCamelCase, Encoding.UTF8, "application/json");
 
 
-            HttpResponseMessage response = await _httpClient.PostAsync($"{serverUrl}/api/EquipmentTypes", content);
+            HttpResponseMessage response = await _httpClient.PostAsync($"{serverUrl}/api/EquipmentType", content);
 
             try
             {
@@ -264,6 +294,7 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
                         {
                             case "Domain.EntityDuplication":
                                 throw new DuplicateEntityException();
+                            default : throw ex;
                         }
                     }
                     else
@@ -276,6 +307,22 @@ namespace FabLab.DeviceManagement.DesktopApplication.Core.Application.Services
                     throw ex;
                 }
             }
+        }
+
+        public async Task FixEquipmentTypesAsync(EquipmentTypeDto fixDto)
+        {
+            var json = JsonConvert.SerializeObject(fixDto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PutAsync($"{serverUrl}/api/EquipmentType", content);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task DeleteEquipmentTypeAsync(string equipmentTypeId)
+        {
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}/api/EquipmentType?name=string{equipmentTypeId}");
+
+            response.EnsureSuccessStatusCode();
         }
     }
 }

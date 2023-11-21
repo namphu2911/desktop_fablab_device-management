@@ -1,41 +1,41 @@
-﻿<UserControl x:Class="FabLab.DeviceManagement.DesktopApplication.Views.BorrowReturn.DeviceCategoryView"
+﻿<UserControl x:Class="FabLab.DeviceManagement.DesktopApplication.Views.Device.DeviceManagementNavigationView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.Device"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.BorrowReturn"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
              xmlns:Components="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Resources.Components" 
-             xmlns:lendreturn="clr-namespace:FabLab.DeviceManagement.DesktopApplication.Views.LendReturn"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1052"
              Background="{StaticResource ColorBackground}"
              Padding="10">
+
     <Grid>
         <TabControl TabStripPlacement="Top" 
                     Style="{StaticResource MaterialDesignFilledTabControl}"
                     materialDesign:ColorZoneAssist.Background="LightGray">
             <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItem2layerRowStyle}">
                 <TabItem.Header >
-                    <TextBlock Style="{StaticResource HeaderText}" Text="DS THIẾT BỊ ĐANG MƯỢN"/>
+                    <TextBlock Style="{StaticResource HeaderText}" Text="QUẢN LÝ THIẾT BỊ"/>
                 </TabItem.Header>
-                <lendreturn:DeviceLendingCategoryView></lendreturn:DeviceLendingCategoryView>
+                <local:DeviceManagementView DataContext="{Binding DeviceManagement}"/>
             </TabItem>
 
             <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItem2layerRowStyle}">
                 <TabItem.Header >
-                    <TextBlock Style="{StaticResource HeaderText}" Text="DS THIẾT BỊ ĐÃ TRẢ"/>
+                    <TextBlock Style="{StaticResource HeaderText}" Text="QUẢN LÝ LOẠI THIẾT BỊ"/>
                 </TabItem.Header>
-                <lendreturn:DeviceReturningCategoryView></lendreturn:DeviceReturningCategoryView>
+                <local:EquipmentTypeView DataContext="{Binding EquipmentType}"/>
             </TabItem>
 
             <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItem2layerRowStyle}">
                 <TabItem.Header >
-                    <TextBlock Style="{StaticResource HeaderText}" Text="DS THIẾT BỊ HỎNG"/>
+                    <TextBlock Style="{StaticResource HeaderText}" Text="NCC - VỊ TRÍ"/>
                 </TabItem.Header>
-                <lendreturn:DeviceDamagedCategoryView></lendreturn:DeviceDamagedCategoryView>
+                <local:MiscellaneousDataView DataContext="{Binding MiscellaneousData}"/>
             </TabItem>
         </TabControl>
     </Grid>
